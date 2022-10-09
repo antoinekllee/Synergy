@@ -3,12 +3,17 @@ require('dotenv').config() // stores all key value pairs in dotenv in process.en
 const express = require ('express'); 
 const mongoose = require ('mongoose'); 
 
+const routes = require ("./routes"); 
+const cims = require('./api/cims.js'); 
+
 const { PORT=3000, MONGODB_URI='mongodb://localhost:27017/synergy' } = process.env; // provide default value in case if not available in .env file
 
 const app = express (); 
 
 app.use (express.json()); 
 app.use (express.urlencoded({ extended: true })); // replace certain invalid characters for the url // %20 -> space
+
+app.use (routes); 
 
 mongoose.connect (MONGODB_URI, () => 
 {
@@ -18,4 +23,6 @@ mongoose.connect (MONGODB_URI, () =>
 app.listen (PORT, () => // fire up express server
 {
     console.log ("LISTENING ON PORT " + PORT); 
+
+    // cims.getStudentsForTeacher(); 
 })

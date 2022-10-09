@@ -7,7 +7,7 @@ const algorithm = async( students, groupSize ) =>
         if (groups[groups.length - 1].length >= groupSize)
             groups.push([]);
 
-        groups[groups.length - 1].push((students[i].givenName === "" ? students[i].forename : students[i].givenName) + " " + students[i].surname); 
+        groups[groups.length - 1].push(students[i]); 
     }
 
     return groups; 

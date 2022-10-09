@@ -3,6 +3,6 @@ const personalityDataController = require ('../../../controllers/personalityData
 
 const router = express.Router (); 
 
-router.post ("/getPersonalityData", personalityDataController.getPersonalityData); // use post to 
+router.post ("/getPersonalityData", personalityDataController.getPersonalityData); // not actually posting any data
 
 module.exports = router; 

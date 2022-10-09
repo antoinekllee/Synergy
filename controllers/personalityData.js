@@ -14,10 +14,8 @@ const getPersonalityData = async (req, res) =>
     {
         const personality = await personalityDataModel.findOne ({ email: new RegExp(`^${student.username}`) }); // find entry in personality db that has email beginning w/ username
         // TODO error if receive username that doesn't exist in collection/with no personality
-        student.sn = personality.sn; 
-        student.tf = personality.tf; 
-        student.ei = personality.ei; 
-        student.pj = personality.pj; 
+        const { sn, tf, ei, pj } = personality; 
+        student.personality = { sn, tf, ei, pj }; 
     }
 
     const groups = await algorithm (students, groupSize); 

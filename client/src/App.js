@@ -41,7 +41,7 @@ function App()
       <form onSubmit={submitHandler}>
         <div>
           <label htmlFor="teacherList">Teacher ID</label>
-          <input list="teacherList" placeholder="Teacher ID" required ref={teacherIDInputRef}/>
+          <input list="teacherList" placeholder="Teacher ID" required ref={teacherIDInputRef} />
           { teacherList }
         </div>
 

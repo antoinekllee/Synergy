@@ -1,5 +1,10 @@
-const algorithm = async(students, groupSize) => 
+const algorithm = async(students, groupSize, connectedStudents, separatedStudents) => 
 {
+    console.log ("CONNECTED: "); 
+    console.log (connectedStudents); 
+    console.log ("SEPARATED: "); 
+    console.log (separatedStudents); 
+
     console.log (">>>>>>>>>>>>>>>>>>>> Running Algorithm"); 
     const bestPartition = []; 
     let usedAgents = []; // all agents added to bestPartition thus far (for initial partition)
@@ -116,7 +121,7 @@ const getUtility = (team) =>
 {
     const diversity = standardDeviation(team.map(x => x.personality.sn)) * standardDeviation(team.map(x => x.personality.tf)); 
     // TODO: CHECK UTILITY FUNCTION WORKS
-
+    
     const a = diversity / 3; // alpha
     const leadershipScores = team.map(agent => dotProduct([0, -a, -a, a], Object.values(agent.personality))); // leadership score (how likely is the agent to be a good leader) for each agent
     const leadership = leadershipScores.reduce((currentMax, value) => currentMax > value ? currentMax : value, 0); // use instead of Math.max // gets max value (above 0)

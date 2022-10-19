@@ -1,0 +1,280 @@
+body
+{
+  font-family: 'Roboto', sans-serif; 
+  margin: 0px; 
+  background-color: #191e22; 
+}
+
+.container
+{
+    background-color: #2d2f32;
+    position: absolute;
+    top: 10vh;
+    right: 10vh;
+    bottom: 10vh;
+    left: 10vh;
+    border-radius: 1%;
+}
+
+label
+{
+    color: white;
+    font-size: 25px;
+    text-align: center;
+}
+
+datalist 
+{
+    position: absolute;
+    max-height: 20em;
+    border: 0 none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: blue;
+}
+
+h1
+{
+    text-align: center;
+    color: white; 
+    font-size: 50px;
+}
+
+h1::after
+{
+	content: '';
+    background: #4a4e4d; 
+	display: block; 
+	height: 3px; 
+	width: 170px;
+	margin: 20px auto 5px;
+}
+
+
+h2, h3
+{
+    /* text-align: center; */
+    font-size: 30px;
+    color: white;
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.react-datalist-input__container * 
+{
+    box-sizing: border-box;
+    display: inline;
+}
+
+.react-datalist-input__container 
+{
+    /* margin: auto; */
+    width: var(--width);
+    /* position: relative; */
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --gray: rgb(200, 200, 200);
+    --padding: 5px;
+    --border-radius: 5px;
+    --border: 1px solid var(--gray);
+    --width: 200px; 
+}
+
+.react-datalist-input__textbox 
+{
+    width: var(--width);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin: 0;
+    padding: var(--padding);
+    border: var(--border);
+    border-radius: var(--border-radius);
+}
+
+.react-datalist-input__listbox 
+{
+    /* width: 100%; */
+    position: absolute;
+    margin: 2px 0 0 0;
+    padding: 0;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    box-shadow: var(--shadow);
+    z-index: 10;
+}
+
+.react-datalist-input__listbox-option 
+{
+    /* width: 100%; */
+    width: var(--width);
+    cursor: pointer;
+    margin: 0;
+    padding: var(--padding);
+}
+
+.react-datalist-input__listbox-option:focus 
+{
+    background-color: var(--gray);
+}
+
+.react-datalist-input__listbox-option:hover 
+{
+    background-color: var(--gray);
+}
+
+
+
+
+
+/*
+h4
+{
+    font-size: 22px;
+}
+*/
+
+/*
+.boldH4
+{
+    color: #ff3f58;
+}
+*/
+
+/*
+button, select
+{
+  height: 60px;  
+  border-radius: 10px;
+  font-size: 24px;
+  background-color: #e9e9e9;
+  border: none;
+  margin: 2px;
+}
+*/
+
+/*
+#subjectDropdown
+{
+    width: 40%; 
+    padding: 12px 20px 12px 20px; 
+}
+*/
+
+/*
+#submitSubject
+{
+    width: 20%; 
+}
+*/
+
+/*
+.verificationColumn
+{
+    float: left;
+    width: 25%;
+    height: 200px;
+}
+*/
+
+/*
+.changeButton
+{
+    height: 60px;
+    width: 140px;
+}
+*/ 
+
+/*
+#verifyButton
+{
+    width: 200px;
+}
+*/
+
+/*
+.card
+{
+    padding: 25px 20px 50px 25px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s; 
+}
+*/
+
+/*
+.card:hover 
+{
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+*/ 
+
+/*
+.fadeIn
+{
+    display: block; 
+    animation: fadeIn 0.5s;
+    -webkit-animation: fadeIn 0.5s; 
+    animation-fill-mode: forwards;
+    pointer-events: auto;
+}
+*/
+
+/*
+@keyframes fadeIn 
+{
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+*/
+
+/*
+.fadedIn
+{
+    opacity: 1; 
+    display: block; 
+    pointer-events: auto;
+}
+*/
+
+/*
+.fadeOut
+{
+    animation: fadeOut 0.5s;
+    -webkit-animation: fadeOut 0.5s; 
+    animation-fill-mode: forwards;
+    pointer-events: none;
+}
+*/
+
+/*
+@keyframes fadeOut 
+{
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+*/
+
+/*
+.fadedOut
+{
+    opacity: 0; 
+    display: none; 
+    pointer-events: none;
+}
+*/
+
+/*
+.blockFadedOut
+{
+    opacity: 0;
+    display: block;
+    pointer-events: none;
+}
+*/

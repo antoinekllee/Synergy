@@ -4,7 +4,8 @@ const express = require ('express');
 const mongoose = require ('mongoose'); 
 
 const routes = require ("./routes"); 
-const cims = require('./api/cims.js'); 
+
+const cims = require ("./api/cims"); 
 
 const { PORT=3000, MONGODB_URI='mongodb://localhost:27017/synergy' } = process.env; // provide default value in case if not available in .env file
 
@@ -18,11 +19,12 @@ app.use (routes);
 mongoose.connect (MONGODB_URI, () => 
 {
     console.log ("CONNECTED TO DB"); 
+
+    // cims.getTeacherIDs(); 
+
 }); // connect to mongodb instance
 
 app.listen (PORT, () => // fire up express server
 {
     console.log ("LISTENING ON PORT " + PORT); 
-
-    // cims.getStudentsForTeacher(); 
 })

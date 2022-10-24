@@ -3,7 +3,6 @@ const personalityDataModel = require ("../models/personalityData");
 const { getStudents } = require ('../api/cims'); 
 const { algorithm } = require ('../api/algorithm'); 
 
-// try to add to index.js and do all backend in single file
 const getPersonalityData = async (req, res) => 
 {
     const { teacherID, groupSize, connectedStudents, separatedStudents } = req.body; 

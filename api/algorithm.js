@@ -16,21 +16,21 @@ const algorithm = async(students, groupSize, connectedStudents, separatedStudent
     // 1. INITIAL GREEDY SOLUTION
     quantitativeDistribution.forEach((distribution) => 
     {
-        let combinations = getCombinations(students, distribution.teamSize); 
-        combinations = combinations.sort ((team1, team2) => // sort descending based on calculated utility
+        let combinations = getCombinations(students, distribution.groupSize); 
+        combinations = combinations.sort ((group1, group2) => // sort descending based on calculated utility
         {
-            const team1Utility = getUtility (team1); 
-            const team2Utility = getUtility (team2); 
+            const group1Utility = getUtility (group1); 
+            const group2Utility = getUtility (group2); 
 
-            if (team1Utility > team2Utility) return -1; 
-            else if (team1Utility < team2Utility) return 1; 
+            if (group1Utility > group2Utility) return -1; 
+            else if (group1Utility < group2Utility) return 1; 
             else return 0; 
         }); 
 
-        let teamsRemaining = distribution.teamCount; 
+        let groupsRemaining = distribution.groupCount; 
         let index = 0; 
 
-        while (teamsRemaining > 0 && index < combinations.length)
+        while (groupsRemaining > 0 && index < combinations.length)
         {
             if (!combinations[index].some (agent => usedAgents.includes(agent)))
             {
@@ -40,7 +40,7 @@ const algorithm = async(students, groupSize, connectedStudents, separatedStudent
                 
                 bestPartition.push (combinations[index]); 
                 usedAgents = usedAgents.concat(combinations[index]); 
-                teamsRemaining--; 
+                groupsRemaining--; 
 
                 // console.log ("Used agents: "); 
                 // console.log (usedAgents.map(x => x.forename)); 
@@ -65,23 +65,23 @@ const algorithm = async(students, groupSize, connectedStudents, separatedStudent
         while (secondIndex == firstIndex && bestPartition.length > 1)
             secondIndex = Math.floor(Math.random() * bestPartition.length); 
 
-        let firstTeam = bestPartition[firstIndex]; 
-        let secondTeam = bestPartition[secondIndex]; 
+        let group1 = bestPartition[firstIndex]; 
+        let group2 = bestPartition[secondIndex]; 
 
-        const originalUtility = getUtility (firstTeam) * getUtility (secondTeam); 
+        const originalUtility = getUtility (group1) * getUtility (group2); 
 
-        const allAgents = firstTeam.concat (secondTeam); 
+        const allAgents = group1.concat (group2); 
 
-        let firstTeamCombinations = getCombinations (allAgents, firstTeam.length); // all possible combinations of first team's size
-        let allSubPartitions = []; // all possible partitions given the 2 teams
+        let group1Combos = getCombinations (allAgents, group1.length); // all possible combinations of first group's size
+        let allSubPartitions = []; // all possible partitions given the 2 groups
 
-        if (firstTeam.length == secondTeam.length) // if both teams same size, second half of combinations will be repeated/reverse of the first half
-            firstTeamCombinations = firstTeamCombinations.slice(0, Math.ceil(firstTeamCombinations.length / 2)); 
+        if (group1.length == group2.length) // if both groups same size, second half of combinations will be repeated/reverse of the first half
+            group1Combos = group1Combos.slice(0, Math.ceil(group1Combos.length / 2)); 
         
-        firstTeamCombinations.forEach (firstTeam => 
+        group1Combos.forEach (group1 => 
         {
-            const secondTeam = allAgents.filter((agent) => !firstTeam.includes(agent)); 
-            allSubPartitions.push ([firstTeam, secondTeam]); 
+            const group2 = allAgents.filter((agent) => !group1.includes(agent)); 
+            allSubPartitions.push ([group1, group2]); 
         }); 
 
         let bestSubPartition = []; 
@@ -117,22 +117,22 @@ const algorithm = async(students, groupSize, connectedStudents, separatedStudent
     return bestPartition; 
 }
 
-const getUtility = (team) => 
+const getUtility = (group) => 
 {
-    const diversity = standardDeviation(team.map(x => x.personality.sn)) * standardDeviation(team.map(x => x.personality.tf)); 
+    const diversity = standardDeviation(group.map(x => x.personality.sn)) * standardDeviation(group.map(x => x.personality.tf)); 
     // TODO: CHECK UTILITY FUNCTION WORKS
     
     const a = diversity / 3; // alpha
-    const leadershipScores = team.map(agent => dotProduct([0, -a, -a, a], Object.values(agent.personality))); // leadership score (how likely is the agent to be a good leader) for each agent
+    const leadershipScores = group.map(agent => dotProduct([0, -a, -a, a], Object.values(agent.personality))); // leadership score (how likely is the agent to be a good leader) for each agent
     const leadership = leadershipScores.reduce((currentMax, value) => currentMax > value ? currentMax : value, 0); // use instead of Math.max // gets max value (above 0)
 
     const b = diversity; // beta = a * 3
-    const introversionScores = team.map(agent => dotProduct([0, 0, b, 0], Object.values(agent.personality))); // introversion score (how introverted is each agent)
+    const introversionScores = group.map(agent => dotProduct([0, 0, b, 0], Object.values(agent.personality))); // introversion score (how introverted is each agent)
     const introversion = introversionScores.reduce((currentMax, value) => currentMax > value ? currentMax : value, 0); // use instead of Math.max // gets max value (above 0)
 
     const g = 0.25; // setting constant gamma to 0.25
-    const femaleCount = team.reduce((currentFemaleCount, agent) => currentFemaleCount + (agent.sex === 'F' ? 1 : 0), 0);
-    const genderBalance = g * Math.sin(Math.PI * (femaleCount / team.length)); 
+    const femaleCount = group.reduce((currentFemaleCount, agent) => currentFemaleCount + (agent.sex === 'F' ? 1 : 0), 0);
+    const genderBalance = g * Math.sin(Math.PI * (femaleCount / group.length)); 
 
     return diversity + leadership + introversion + genderBalance; 
 }
@@ -157,31 +157,31 @@ const getCombinations = (arr, length) => // get all length sized combinations fr
     );
 }
 
-const setQuantitativeDistribution = (studentCount, targetTeamSize) => 
+const setQuantitativeDistribution = (studentCount, targetGroupSize) => 
 {
-    minTeamCount = Math.floor (studentCount / targetTeamSize); // minimum total number of teams
-    extraAgents = studentCount % targetTeamSize; 
+    const minGroupCount = Math.floor (studentCount / targetGroupSize); // minimum total number of groups
+    const extraAgents = studentCount % targetGroupSize; 
 
-    let distribution = []; // list fo objects with teamCount and teamSize
+    let distribution = []; // list fo objects with groupCount and groupSize
 
-    if (studentCount >= targetTeamSize)
+    if (studentCount >= targetGroupSize)
     {
         if (extraAgents == 0)
-            distribution.push({ teamCount: minTeamCount, teamSize: targetTeamSize }); 
-        else if (extraAgents <= minTeamCount)
+            distribution.push({ groupCount: minGroupCount, groupSize: targetGroupSize }); 
+        else if (extraAgents <= minGroupCount)
         {
-            distribution.push ({ teamCount: extraAgents, teamSize: (parseInt (targetTeamSize) + 1) }); 
-            distribution.push ({ teamCount: minTeamCount - extraAgents, teamSize: targetTeamSize }); 
+            distribution.push ({ groupCount: extraAgents, groupSize: (parseInt (targetGroupSize) + 1) }); 
+            distribution.push ({ groupCount: minGroupCount - extraAgents, groupSize: targetGroupSize }); 
         }
-        else // extraAgents > minTeamCount
+        else // extraAgents > minGroupCount
         {
-            distribution.push ({ teamCount: minTeamCount, teamSize: targetTeamSize }); 
-            distribution.push ({ teamCount: 1, teamSize: extraAgents }); 
+            distribution.push ({ groupCount: minGroupCount, groupSize: targetGroupSize }); 
+            distribution.push ({ groupCount: 1, groupSize: extraAgents }); 
             console.log ("LAST CASE"); 
         }
     }
     else
-        distribution.push({ teamCount: 0, teamSize: 0 }); // TODO: throw error/warning
+        distribution.push({ groupCount: 0, groupSize: 0 }); // TODO: throw error/warning
 
     return distribution; 
 }

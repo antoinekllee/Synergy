@@ -1,0 +1,17 @@
+.container
+{
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loadingText
+{
+    color: var(--textColour);
+    font-size: 50px;
+    font-weight: bold;
+}

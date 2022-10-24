@@ -4,7 +4,7 @@ import './App.css';
 import Layout from './components/Layout';
 import LoadingPanel from './components/LoadingPanel';
 
-import SettingsPage from './pages/SettingsPage';
+import OptionsPage from './pages/OptionsPage';
 import PartitionPage from './pages/PartitionPage';
 
 import LoadingContext from './store/LoadingContext';
@@ -13,8 +13,8 @@ import PartitionContext from './store/PartitionContext';
 
 function App() 
 {
-  const [onSettingsPage, setOnSettingsPage] = useState (true); // app currently on the settings or groups page? 
-  const pageContextValue = useMemo (() => ({ onSettingsPage, setOnSettingsPage }), [onSettingsPage, setOnSettingsPage]); 
+  const [onOptionsPage, setOnOptionsPage] = useState (true); // app currently on the options or groups page? 
+  const pageContextValue = useMemo (() => ({ onOptionsPage, setOnOptionsPage }), [onOptionsPage, setOnOptionsPage]); 
 
   const [partition, setPartition] = useState ([]); 
   const partitionContextValue = useMemo (() => ({ partition, setPartition }), [partition, setPartition]); 
@@ -22,7 +22,9 @@ function App()
   const [isLoading, setIsLoading] = useState (false); 
   const isLoadingContextValue = useMemo (() => ({ isLoading, setIsLoading }), [isLoading, setIsLoading]); 
 
-  const output = onSettingsPage ? <SettingsPage /> : <PartitionPage />
+  const output = onOptionsPage ? <OptionsPage /> : <PartitionPage />
+
+  // return <Layout><PartitionPage /></Layout>; 
 
   return (
     <div>

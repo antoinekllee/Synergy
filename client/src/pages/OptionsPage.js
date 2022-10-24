@@ -3,15 +3,15 @@ import { useRef, useState, useCallback, useEffect, useContext } from 'react';
 import StudentPairPanel from '../components/StudentPairPanel';
 import DatalistInput from 'react-datalist-input'; 
 
-import classes from './SettingsPage.module.css'; 
+import classes from './OptionsPage.module.css'; 
 
 import PageContext from '../store/PageContext';
 import PartitionContext from '../store/PartitionContext';
 import LoadingContext from '../store/LoadingContext';
 
-function SettingsPage() 
+function OptionsPage() 
 { 
-  const { setOnSettingsPage} = useContext (PageContext); 
+  const { setOnOptionsPage } = useContext (PageContext); 
   const { setPartition } = useContext (PartitionContext);  
   const { setIsLoading } = useContext (LoadingContext); 
 
@@ -184,16 +184,16 @@ function SettingsPage()
     const data = await response.json(); 
 
     setPartition (data); // update partition context
-    setOnSettingsPage (false); // go to groups page
+    setOnOptionsPage (false); // go to groups page
     
     setIsLoading (false); 
   }
 
   return (
     <div className={classes.container}>
-      <h1>SETTINGS</h1>
+      <h1>SYNERGY</h1>
 
-      <h2>Class</h2>
+      {/* <h2>Class</h2> */}
       <DatalistInput 
         placeholder="Teacher ID"
         onSelect={(id) => teacherSelectHandler(id)}
@@ -249,4 +249,4 @@ function SettingsPage()
   );
 }
 
-export default SettingsPage;
+export default OptionsPage;

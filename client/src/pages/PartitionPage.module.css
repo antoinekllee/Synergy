@@ -1,0 +1,13 @@
+.container
+{
+    top: 150px; 
+    bottom: 50px;
+    left: 80px;
+    right: 80px;
+    position: absolute;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5% 2%;
+}

@@ -10,7 +10,7 @@ import GroupPanel from '../components/GroupPanel';
 function PartitionPage ()
 {
     const { setOnOptionsPage} = useContext (PageContext); 
-    const { partition } = useContext (PartitionContext); 
+    const { partition, setPartition } = useContext (PartitionContext); 
 
     return <div>
         <h1>GROUPS</h1>

@@ -1,18 +1,94 @@
-function StudentPairPanel (props)
+import { useEffect, useState } from 'react'; 
+
+import classes from './StudentPairPanel.module.css'; 
+
+import DatalistInput from 'react-datalist-input';
+
+import StudentAffiliationList from './StudentAffiliationList';
+
+function StudentPairPanel (props) 
 {
-    const pairList = <ul>{props.pairs.map ((pair, index) => 
+  const [selectedStudent1, setSelectedStudent1] = useState (null); 
+  const [selectedStudent2, setSelectedStudent2] = useState (null); 
+
+  const [pairedStudents, setPairedStudents] = useState([]); 
+  const [separatedStudents, setSeparatedStudents] = useState([]); 
+
+  useEffect (() => 
+  {
+    setPairedStudents (props.pairedStudents); 
+    setSeparatedStudents (props.separatedStudents); 
+  }, [])
+
+  const addAffiliation = (isPair) => // isPair indicates whether students are a pair or separated
+  {
+    if (isPair && pairedStudents.length >= 3 || !isPair && separatedStudents.length >= 3)
     {
-        const name1 = pair[0].givenName === '' ? pair[0].forename : pair[0].givenName; 
-        const name2 = pair[1].givenName === '' ? pair[1].forename : pair[1].givenName; 
+      console.log ("CAN'T HAVE MORE THAN 3 " + (isPair ? "PAIRS" : "SEPARATIONS")); 
+      return; 
+    }
 
-        return <li key={index}>{name1} and {name2}<button>-</button></li>; 
-    })}</ul>; 
+    if (selectedStudent1 === null || selectedStudent2 === null)
+    {
+      console.log ("INVALID PAIR: CONTAINS NULL STUDENT"); 
+      return; 
+    }
 
-    return <div>
-        { pairList }
+    if (selectedStudent1 === selectedStudent2)
+    {
+      console.log ("INVALID PAIR: TWO OF SAME STUDENT"); 
+      return; 
+    }
+
+    const allAffiliations = pairedStudents.concat (separatedStudents); 
+    if (pairExists (allAffiliations, [selectedStudent1, selectedStudent2]) || pairExists (allAffiliations, [selectedStudent2, selectedStudent1]))
+    {
+      console.log ("INVALID PAIR: PAIR ALREADY EXISTS"); 
+      return; 
+    }
+
+    let newAffiliations = isPair ? pairedStudents : separatedStudents; 
+    newAffiliations.push ([selectedStudent1, selectedStudent2]); 
+    
+    if (isPair)
+      setPairedStudents (newAffiliations); 
+    else
+      setSeparatedStudents (newAffiliations); 
+  }
+
+  const pairExists = (pairArr, newPair) => // check if student pair (together/separated) already registered
+  {
+    const pairString = JSON.stringify(newPair); // convert to string to be compared
+    return pairArr.some ((pair) => JSON.stringify (pair) === pairString); 
+  }
+
+  return <div className={classes.container}>
+        <h1>AFFILIATIONS</h1>
+        <DatalistInput 
+          placeholder="Student 1"
+          onSelect={(student) => setSelectedStudent1 (student.student)}
+          items={props.students}
+        />
+        <DatalistInput 
+          placeholder="Student 2"
+          onSelect={(student) => setSelectedStudent2 (student.student)}
+          items={props.students}
+        />
+        <button onClick={() => addAffiliation(true)}>Pair</button>
+        <button onClick={() => addAffiliation(false)}>Separate</button>
+
+        <h2>PAIRED</h2>
+        <StudentAffiliationList pairs={pairedStudents} isPair={true} removeAffiliation={props.removeAffiliation} /> {/* UPDATE AFFILIATION LIST WITH OLD PAIRS IF CLOSED THEN OPENED */}
+
+        <h2>SEPARATED</h2>
+        <StudentAffiliationList pairs={separatedStudents} isPair={false} removeAffiliation={props.removeAffiliation} />
+
+        <button onClick={() => 
+        {
+            props.updateAffiliations(pairedStudents, separatedStudents); 
+            props.closeAffiliationPanel (); 
+        }}>CLOSE</button>
     </div>; 
-
-    // return <li>{props.pair[0].forename} and {props.pair[1].forename}</li>
 }
 
 export default StudentPairPanel; 

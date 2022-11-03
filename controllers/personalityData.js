@@ -5,7 +5,7 @@ const { algorithm } = require ('../api/algorithm');
 
 const getPersonalityData = async (req, res) => 
 {
-    const { teacherID, groupSize, connectedStudents, separatedStudents } = req.body; 
+    const { teacherID, groupSize, pairedStudents, separatedStudents } = req.body; 
 
     const students = await getStudents (teacherID); 
 
@@ -17,7 +17,7 @@ const getPersonalityData = async (req, res) =>
         student.personality = { sn, tf, ei, pj }; 
     }
 
-    const groups = await algorithm (students, groupSize, connectedStudents, separatedStudents); 
+    const groups = await algorithm (students, groupSize, pairedStudents, separatedStudents); 
 
     res.json (groups); 
 }

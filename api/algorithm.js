@@ -1,7 +1,7 @@
-const algorithm = async(students, groupSize, connectedStudents, separatedStudents) => 
+const algorithm = async(students, groupSize, pairedStudents, separatedStudents) => 
 {
-    console.log ("CONNECTED: "); 
-    console.log (connectedStudents); 
+    console.log ("PAIRED: "); 
+    console.log (pairedStudents); 
     console.log ("SEPARATED: "); 
     console.log (separatedStudents); 
 
@@ -19,8 +19,8 @@ const algorithm = async(students, groupSize, connectedStudents, separatedStudent
         let combinations = getCombinations(students, distribution.groupSize); 
         combinations = combinations.sort ((group1, group2) => // sort descending based on calculated utility
         {
-            const group1Utility = getUtility (group1); 
-            const group2Utility = getUtility (group2); 
+            const group1Utility = getUtility (group1, pairedStudents, separatedStudents); 
+            const group2Utility = getUtility (group2, pairedStudents, separatedStudents); 
 
             if (group1Utility > group2Utility) return -1; 
             else if (group1Utility < group2Utility) return 1; 
@@ -68,7 +68,7 @@ const algorithm = async(students, groupSize, connectedStudents, separatedStudent
         let group1 = bestPartition[firstIndex]; 
         let group2 = bestPartition[secondIndex]; 
 
-        const originalUtility = getUtility (group1) * getUtility (group2); 
+        const originalUtility = getUtility (group1, pairedStudents,separatedStudents) * getUtility (group2, pairedStudents,separatedStudents); 
 
         const allAgents = group1.concat (group2); 
 
@@ -89,7 +89,7 @@ const algorithm = async(students, groupSize, connectedStudents, separatedStudent
 
         allSubPartitions.forEach(partition => 
         {
-            const partitionUtility = getUtility(partition[0]) * getUtility(partition[1]); 
+            const partitionUtility = getUtility(partition[0], pairedStudents, separatedStudents) * getUtility(partition[1], pairedStudents, separatedStudents); 
 
             if (partitionUtility > bestSubPartitionUtility)
             {
@@ -117,10 +117,38 @@ const algorithm = async(students, groupSize, connectedStudents, separatedStudent
     return bestPartition; 
 }
 
-const getUtility = (group) => 
+const getUtility = (group, pairedStudents, separatedStudents) => 
 {
+    const groupUsernames = group.map (student => student.username); 
+
+    let isValidTeam = true; 
+
+    pairedStudents.forEach (students => 
+    {
+        const containsStudent1 = groupUsernames.includes (students[0].username); 
+        const containsStudent2 = groupUsernames.includes (students[1].username); 
+        
+        if (containsStudent1 != containsStudent2) 
+            isValidTeam = false; 
+    }); 
+
+    
+    if (!isValidTeam)
+        return 0; 
+    
+    separatedStudents.forEach (students => 
+    {
+        const containsStudent1 = groupUsernames.includes (students[0].username); 
+        const containsStudent2 = groupUsernames.includes (students[1].username); 
+
+        if (containsStudent1 && containsStudent2) 
+            isValidTeam = false; 
+    }); 
+
+    if (!isValidTeam)
+        return 0; 
+
     const diversity = standardDeviation(group.map(x => x.personality.sn)) * standardDeviation(group.map(x => x.personality.tf)); 
-    // TODO: CHECK UTILITY FUNCTION WORKS
     
     const a = diversity / 3; // alpha
     const leadershipScores = group.map(agent => dotProduct([0, -a, -a, a], Object.values(agent.personality))); // leadership score (how likely is the agent to be a good leader) for each agent

@@ -24,8 +24,6 @@ function App()
 
   const output = onOptionsPage ? <OptionsPage /> : <PartitionPage />
 
-  // return <Layout><PartitionPage /></Layout>; 
-
   return (
     <div>
       <Layout>

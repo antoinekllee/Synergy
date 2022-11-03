@@ -135,6 +135,13 @@ button
   color: var(--textColour);
 }
 
+p
+{
+    /* text-align: center; */
+    font-size: 18px;
+    color: var(--textColour);
+}
+
 
 /*
 #subjectDropdown

@@ -51,9 +51,9 @@ function StudentPairPanel (props)
     newAffiliations.push ([selectedStudent1, selectedStudent2]); 
     
     if (isPair)
-      setPairedStudents (newAffiliations); 
+      setPairedStudents ([...newAffiliations]); // spread array so react component re-renders
     else
-      setSeparatedStudents (newAffiliations); 
+      setSeparatedStudents ([...newAffiliations]); 
   }
 
   const pairExists = (pairArr, newPair) => // check if student pair (together/separated) already registered
@@ -64,6 +64,7 @@ function StudentPairPanel (props)
 
   return <div className={classes.container}>
         <h1>AFFILIATIONS</h1>
+        <p>Try to set as little restrictions as possible, as it may reduce the efficacy of the algorithm</p>
         <DatalistInput 
           placeholder="Student 1"
           onSelect={(student) => setSelectedStudent1 (student.student)}

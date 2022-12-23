@@ -18,17 +18,17 @@ function StudentPairPanel (props)
   {
     setPairedStudents (props.pairedStudents); 
     setSeparatedStudents (props.separatedStudents); 
-  }, [])
+  }, [props.pairedStudents, props.separatedStudents])
 
   const addAffiliation = (isPair) => // isPair indicates whether students are a pair or separated
   {
-    if (isPair && pairedStudents.length >= 3 || !isPair && separatedStudents.length >= 3)
+    if ((isPair && pairedStudents.length >= 3) || (!isPair && separatedStudents.length >= 3))
     {
       console.log ("CAN'T HAVE MORE THAN 3 " + (isPair ? "PAIRS" : "SEPARATIONS")); 
       return; 
     }
 
-    if (selectedStudent1 === null || selectedStudent2 === null)
+    if ((selectedStudent1 === null) || (selectedStudent2 === null))
     {
       console.log ("INVALID PAIR: CONTAINS NULL STUDENT"); 
       return; 
@@ -62,6 +62,23 @@ function StudentPairPanel (props)
     return pairArr.some ((pair) => JSON.stringify (pair) === pairString); 
   }
 
+  const removeAffiliation = (isPair, index)  => 
+  {
+    let newAffiliations = isPair ? pairedStudents : separatedStudents; 
+    newAffiliations.splice (index, 1); 
+
+    if (isPair)
+    {
+			console.log ("REMOVING PAIR AT INDEX " + index); 
+      setPairedStudents ([...newAffiliations]); 
+    }
+    else
+    {
+      console.log ("REMOVING SEPARATED PAIR AT INDEX " + index); 
+      setSeparatedStudents ([...newAffiliations]); 
+    }
+  }
+
   return <div className={classes.container}>
         <h1>AFFILIATIONS</h1>
         <p>Try to set as little restrictions as possible, as it may reduce the efficacy of the algorithm</p>
@@ -79,10 +96,10 @@ function StudentPairPanel (props)
         <button onClick={() => addAffiliation(false)}>Separate</button>
 
         <h2>PAIRED</h2>
-        <StudentAffiliationList pairs={pairedStudents} isPair={true} removeAffiliation={props.removeAffiliation} /> {/* UPDATE AFFILIATION LIST WITH OLD PAIRS IF CLOSED THEN OPENED */}
+        <StudentAffiliationList pairs={pairedStudents} isPair={true} removeAffiliation={removeAffiliation} /> {/* UPDATE AFFILIATION LIST WITH OLD PAIRS IF CLOSED THEN OPENED */}
 
         <h2>SEPARATED</h2>
-        <StudentAffiliationList pairs={separatedStudents} isPair={false} removeAffiliation={props.removeAffiliation} />
+        <StudentAffiliationList pairs={separatedStudents} isPair={false} removeAffiliation={removeAffiliation} />
 
         <button onClick={() => 
         {

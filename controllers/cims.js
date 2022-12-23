@@ -8,15 +8,15 @@ const getTeacherIDs = async (req, res) =>
 
 const getClasses = async (req, res) => 
 {
-    const { teacherID } = req.body; 
-    const classes = await api.getClasses (teacherID); 
+    const { teacherId } = req.body; 
+    const classes = await api.getClasses (teacherId); 
     res.json (classes); 
 }
 
 const getStudents = async (req, res) => 
 {
-    const { classCode } = req.body; 
-    const students = await api.getStudents (classCode); 
+    const { classId } = req.body; 
+    const students = await api.getStudents (classId); 
     res.json (students); 
 }
 

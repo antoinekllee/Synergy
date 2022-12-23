@@ -1,4 +1,4 @@
-.container
+.groupContainer
 {
     top: 150px; 
     bottom: 50px;
@@ -10,4 +10,27 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 5% 2%;
+    background-color: var(--containerColour); /* Block options page behind */
 }
+
+.backButton 
+{
+    position: absolute; 
+    left: 5%;
+    top: 5%; 
+}
+
+/* .backgroundBlocker
+{
+    background-color: var(--containerColour);
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+}
+
+.title
+{
+    z-index: 10;
+} */

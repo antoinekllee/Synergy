@@ -1,6 +1,5 @@
 import { useRef, useState, useCallback, useEffect, useContext } from 'react'; 
 
-// import StudentPairPanel from '../components/StudentPairPanel';
 import DatalistInput from 'react-datalist-input'; 
 import StudentPairPanel from '../components/StudentPairPanel';
 
@@ -17,7 +16,7 @@ function OptionsPage()
   const { setIsLoading } = useContext (LoadingContext); 
 
   // Loading teacher IDs
-  const [teacherIDs, setTeacherIDs] = useState([]); // all teacher IDs (options)
+  const [teacherIdOptions, setTeacherIdOptions] = useState([]); // all teacher IDs (options)
   useEffect (() => 
   {
     const loadTeachers = async() => 
@@ -28,7 +27,7 @@ function OptionsPage()
       const data = await response.json(); 
 
       const teacherItems = data.map((teacher) => ({ id: teacher.id, value: teacher.id })); // format into items for dropdown
-      setTeacherIDs (teacherItems); 
+      setTeacherIdOptions (teacherItems); 
 
       setIsLoading (false); 
     }
@@ -37,60 +36,74 @@ function OptionsPage()
   }, []); 
 
   // Loading classes when teacher ID selected
-  const [selectedTeacherID, setSelectedTeacherID] = useState(null); 
+  const [teacherId, setTeacherId] = useState(null); 
   const [classes, setClasses] = useState([]); // class options for dropdown (all classes taught by teacher with teacherID)
 
   const teacherSelectHandler = useCallback((id) => 
   {
-    setSelectedTeacherID(id.value); 
-    setSelectedClass (null); // hide options for pairing students
+    setTeacherId(id.value); 
+    setSelectedClassId (null); // hide options for pairing students
   }, []); 
 
   useEffect (() => // called when teacherID selected from dropdown
   {
+    if (teacherId === null)
+      return; 
+      
     const getClasses = async() => 
     {
+      setIsLoading(true); 
+
       const response = await fetch ("/api/cims/classes", // get students for selected teacher's class
       { 
-        body: JSON.stringify ({ teacherID: selectedTeacherID }), // send over text representation of json object 
+        body: JSON.stringify ({ teacherId }), // send over text representation of json object 
         headers: { "Content-Type": "application/json" }, // let server know to turn plain text back into json object
         method: "POST"
       }); 
       const data = await response.json(); 
 
-      const classItems = data.map ((className) => ({ id: className.classCode, value: className.classCode }))
+      const classItems = data.map ((className) => ({ id: className.classId, value: className.classCode, classId: className.classId })) // value is displayed in dropdown, classId is passed to backend
       setClasses (classItems); 
+
+      setIsLoading(false); 
     }
 
     getClasses (); 
-  }, [selectedTeacherID]); 
+  }, [teacherId]); 
 
-  const [selectedClass, setSelectedClass] = useState (null); // class code
+  const [selectedClassId, setSelectedClassId] = useState (null); // class code
   const [students, setStudents] = useState([]); // array of all students given selected class code
 
   const selectClassHandler = useCallback((classCode) => 
   {
-    setSelectedClass (classCode.value); 
+    setSelectedClassId (classCode.classId); 
   }, []); 
 
   useEffect (() => 
   {
+    if (selectedClassId === null)
+      return; 
+
     const getStudents = async() => 
     {
+      setIsLoading(true); 
+
       const response = await fetch ("/api/cims/students", // get students for selected class
       { 
-        body: JSON.stringify ({ classCode: selectedClass }), // send over text representation of json object 
+        body: JSON.stringify ({ classId: selectedClassId }), // send over text representation of json object 
         headers: { "Content-Type": "application/json" }, // let server know to turn plain text back into json object
         method: "POST"
       }); 
       const data = await response.json(); 
 
-      const studentItems = data.map ((student) => ({ id: student.givenName === '' ? student.forename : student.givenName, value: student.givenName === '' ? student.forename : student.givenName, student }))
+      const studentItems = data.map ((student) => ({ id: student.username, value: (!('givenName' in student) || student.givenName === '') ? student.forename : student.givenName, student })) // some student objects don't have property givenName
       setStudents (studentItems); // student items for dropdown
+      
+      setIsLoading(false); 
     }
 
     getStudents(); 
-  }, [selectedClass]); 
+  }, [selectedClassId]); 
 
   // Running algorithm  
   const groupSizeInputRef = useRef (); 
@@ -100,15 +113,17 @@ function OptionsPage()
 
     const groupSize = groupSizeInputRef.current.value; 
 
-    console.log ("Running algorithm on class " + selectedTeacherID + " with group size " + groupSize); 
+    console.log ("Running algorithm on class " + teacherId + " with group size " + groupSize); 
 
     const algorithmData = 
     {
-      teacherID: selectedTeacherID, 
+      classId: selectedClassId, 
       groupSize, 
       pairedStudents, 
       separatedStudents
     }
+
+    // console.log (algorithmData); 
 
     const response = await fetch ("/api/personalityData", 
     { 
@@ -139,42 +154,24 @@ function OptionsPage()
     setSeparatedStudents (newSeparatedStudents)
   }
 
-  const removeAffiliation = (isPair, index)  => 
-  {
-    let newAffiliations = isPair ? pairedStudents : separatedStudents; 
-    newAffiliations.splice (index, 1); 
-
-    if (isPair)
-    {
-			console.log ("REMOVING PAIR AT INDEX " + index); 
-      setPairedStudents (newAffiliations); 
-    }
-    else
-    {
-      console.log ("REMOVING SEPARATED PAIR AT INDEX " + index); 
-      setSeparatedStudents (newAffiliations); 
-    }
-  }
-
   return (
-    <div className={classes.container}>
-      <h1>SYNERGY</h1>
-
+    <div>
       <DatalistInput 
-        placeholder="Teacher ID"
+        placeholder="Teacher ID (e.g. kem)"
         onSelect={(id) => teacherSelectHandler(id)}
-        items={teacherIDs}
+        items={teacherIdOptions}
       />
 
-      {selectedTeacherID && <DatalistInput // TODO: automatically select current class being taught (from CIMS); add (current) to name in dropdown list
+      {teacherId && <DatalistInput // TODO: automatically select current class being taught (from CIMS); add (current) to name in dropdown list
         placeholder="Class"
-        onSelect={(classCode) => selectClassHandler (classCode)}
+        onSelect={(classItem) => selectClassHandler (classItem)}
         items={classes}
+        value=""
       />}
   
-      {selectedClass && <div>
+      {selectedClassId && <div>
         <h2>Group Size</h2>
-        <div className={classes.inputContainer}>
+        <div>
           <input type="number" id="groupSize" name="groupSize" min="2" max="6" defaultValue={5} ref={groupSizeInputRef} />
           <button onClick={runAlgorithmHandler}>Generate</button>
         </div>
@@ -187,7 +184,6 @@ function OptionsPage()
         pairedStudents={pairedStudents}
         separatedStudents={separatedStudents}
         closeAffiliationPanel={toggleAffiliationPanel}
-        removeAffiliation={removeAffiliation}
         updateAffiliations={updateAffiliations} /> }
     </div>
   );

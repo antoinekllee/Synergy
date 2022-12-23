@@ -10,11 +10,15 @@ import GroupPanel from '../components/GroupPanel';
 function PartitionPage ()
 {
     const { setOnOptionsPage} = useContext (PageContext); 
-    const { partition, setPartition } = useContext (PartitionContext); 
+    const { partition } = useContext (PartitionContext); 
 
     return <div>
-        <h1>GROUPS</h1>
-        <div className={classes.container}>
+        {/* <div className={classes.backgroundBlocker}></div> */}
+
+        {/* <h1 className={classes.title}>TITLE 2</h1> */}
+
+        <button className={classes.backButton} onClick={() => setOnOptionsPage(true)}>Back</button>
+        <div className={classes.groupContainer}>
             { partition.map((group, index) => <GroupPanel students={group} key={index} />) }
         </div>
         {/* <button onClick={() => setOnOptionsPage (true)}>OPTIONS</button> */}

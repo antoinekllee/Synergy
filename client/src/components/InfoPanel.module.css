@@ -1,0 +1,40 @@
+.container 
+{
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0; 
+    bottom: 0;
+    left: 0;
+    right: 0;    
+}
+
+.body
+{
+    background-color: var(--containerColour);
+    position: absolute;
+    top: 15%;
+    bottom: 15%;
+    left: 30%;
+    right: 30%;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.closeButton
+{
+    position: absolute; 
+    top: 5%; 
+    left: 5%; 
+}
+
+.infoList
+{
+    color: var(--textColour);
+    font-size: 18px;
+}
+
+.infoList li
+{
+    margin: 5px 0;
+    line-height: 28px;
+}

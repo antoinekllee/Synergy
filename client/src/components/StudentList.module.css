@@ -1,0 +1,33 @@
+.includedItem
+{
+    color: white;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    user-select: none;
+}
+
+.discludedItem
+{
+    color: rgb(200, 200, 200);
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    user-select: none;
+
+    text-decoration: line-through;
+}
+
+.includedItem:hover
+{
+    color: rgb(200, 200, 200);
+    cursor: pointer; 
+
+    text-decoration: line-through;
+}
+
+.discludedItem:hover
+{
+    color: white;
+    cursor: pointer; 
+}

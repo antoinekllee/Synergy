@@ -2,13 +2,13 @@ const fetch = require('node-fetch');
 
 const { CIMSAPI_KEY } = process.env; 
 
-async function getTeacherIDs () // get list of all teacher IDs
-{
-    const response = await fetch ('http://localhost:3003/teachers'); 
-    const data = await response.json(); 
-    console.log ("FETCHING TEACHERS"); 
-    return data; 
-}
+// async function getTeacherIDs () // get list of all teacher IDs
+// {
+//     const response = await fetch ('http://localhost:3003/teachers'); 
+//     const data = await response.json(); 
+//     console.log ("FETCHING TEACHERS"); 
+//     return data; 
+// }
 
 async function getClasses (teacherId) // get list of classes for teacher
 {
@@ -37,13 +37,13 @@ async function getStudents (classId) // get list of students for class
             "Content-Type": "application/json", 
             "Authorization": "Basic " + CIMSAPI_KEY
         }, 
-        body: JSON.stringify({ ClassId: classId })
+        body: JSON.stringify({ ClassId: classId }) 
     }); 
 
     const data = await response.json(); 
-    console.log ("FETCHING STUDENTS FOR CLASS " + classId); 
+    // console.log ("FETCHING STUDENTS FOR CLASS " + classId); 
     // console.log(data.students); 
     return data.students; 
 }
 
-module.exports = { getTeacherIDs, getClasses, getStudents }; 
+module.exports = { getClasses, getStudents }; 

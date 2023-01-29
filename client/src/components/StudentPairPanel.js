@@ -85,12 +85,12 @@ function StudentPairPanel (props)
         <DatalistInput 
           placeholder="Student 1"
           onSelect={(student) => setSelectedStudent1 (student.student)}
-          items={props.students}
+          items={props.studentItems}
         />
         <DatalistInput 
           placeholder="Student 2"
           onSelect={(student) => setSelectedStudent2 (student.student)}
-          items={props.students}
+          items={props.studentItems}
         />
         <button onClick={() => addAffiliation(true)}>Pair</button>
         <button onClick={() => addAffiliation(false)}>Separate</button>

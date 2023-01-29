@@ -7,17 +7,17 @@ const getPersonalityData = async (req, res) =>
 {
     try
     {
-        const { classId, groupSize, pairedStudents, separatedStudents } = req.body; 
+        let { students, groupSize, includedStudents, pairedStudents, separatedStudents } = req.body; 
 
-        if (!classId || !groupSize || !pairedStudents || !separatedStudents)
+        if (!students || !groupSize || !includedStudents || !pairedStudents || !separatedStudents)
         {
             return res.status (400).json ({
                 status: "ERROR", 
-                message: "Class ID, group size, paired students, and separated students are all required"
+                message: "Students, group size, paired students, and separated students are all required"
             })
         }
 
-        const students = await getStudents (classId); 
+        students = students.filter((student, index) => includedStudents[index]); // remove students who are crossed out/not to be included
 
         for (let student of students)
         {

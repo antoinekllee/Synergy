@@ -58,7 +58,7 @@ Synergy has been tested in real-world classroom settings and demonstrated signif
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/synergy.git
+git clone https://github.com/antoinekllee/Synergy.git
 ```
 
 2. Install the dependencies:

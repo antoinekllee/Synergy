@@ -171,7 +171,6 @@ function OptionsPage()
 
     setIsLoading (true); 
 
-
     const algorithmData = 
     {
       // classId: classItem.classId, 

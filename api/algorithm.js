@@ -1,5 +1,10 @@
+// TODO: ALGORITHM DOES NOT ACCOUNT FOR SEX PROPERLY
+
 const algorithm = async(students, groupSize, pairedStudents, separatedStudents) => 
 {
+    console.log ("STUDENTS:")
+    console.log (students);
+
     console.log ("PAIRED: "); 
     console.log (pairedStudents); 
     console.log ("SEPARATED: "); 

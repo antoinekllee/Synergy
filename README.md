@@ -17,7 +17,16 @@ Welcome to **Synergy**! Enhancing classroom collaboration and performance by cre
 
 ## 🧪 Algorithm
 
-Synergy uses an innovative algorithm to create optimized groups of students based on the following principles:
+Synergy uses an innovative algorithm to create optimized groups of students based on their personality traits derived from the Post-Jungian (PJ) personality theory. The PJ personality theory is an extension of Carl Jung's psychological types and consists of four dimensions:
+
+1. SN (Sensing vs Intuition)
+2. TF (Thinking vs Feeling)
+3. EI (Extroversion vs Introversion)
+4. PJ (Perception vs Judgment)
+
+Students complete a 20-question personality quiz, with answers ranging from 1 to 4. These answers are then mapped to a four-dimensional vector based on the PJ personality theory dimensions. The personality vectors of all students in a class are used by the algorithm to compute k-sized groups that optimize the utility function.
+
+The algorithm creates groups based on the following principles:
 
 1. Cognitive Diversity: Values teams with diverse SN (Sensing vs Intuition) and TF (Thinking vs Feeling) personality dimensions.
 2. Leadership: Values teams with at least one ETJ agent (the leader).
@@ -43,26 +52,6 @@ Synergy is available as an easy-to-use web application that offers the following
 ## 📊 Results
 
 Synergy has been tested in real-world classroom settings and demonstrated significant improvement in group performance compared to self-selected and randomized groups. On average, groups formed by our algorithm performed 35.9% better than self-selected groups.
-
-## 🌱 Future Steps
-
-We are exploring additional enhancements to Synergy, such as:
-
-- Incorporating the Five Factor Model (FFM) for personality assessment.
-- Allowing teachers to input student affiliations.
-- Enabling students to provide names of preferred team members.
-- Taking student grades and other performance metrics into account.
-
-## 📚 References
-
-- [Momani & Stirk (Diversity Dividend Canada’s Global Advantage)](www.cigionline.org/static/documents/documents/DiversitySpecial%20Report%20WEB_0.pdf)
-- [Nathan & Lee (Cultural Diversity, Innovation, and Entrepreneurship)](www.tandfonline.com/doi/abs/10.1111/ecge.12016)
-- [Tolsma et al. (Who Is Bullying Whom in Ethnically Diverse Primary Schools?)](https://doi.org/10.1016/j.socnet.2012.12.002)
-- [Jimerson (Advancing Diversity, Equity, and Inclusion in School Psychology)](www.tandfonline.com/doi/full/10.1080/2372966X.2021.1889938)
-- [Judge et al. (Personality and Leadership: A Qualitative and Quantitative Review)](https://doi.org/10.1037/0021-9010.87.4.765)
-- [Andrejczuk et al. (Synergistic Team Composition: A Computational Approach to Foster Diversity in Teams)](https://doi.org/10.1016/j.knosys.2019.06.007)
-- [Rands & Gansemer-Topf (The Room Itself Is Active: How Classroom Design Impacts Student Engagement)](files.eric.ed.gov/fulltext/EJ1152568.pdf)
-- [Barbuto (A Critique of the Myers-Briggs Type Indicator and Its Operationalization of Carl Jung’s Psychological Types)](https://doi.org/10.2466/pr0.1997.80.2.611)
 
 ## 🛠️ Installation & Setup
 
@@ -92,3 +81,23 @@ npm start
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ![Thank You](./images/thank_you.jpg)
+
+## 🌱 Future Steps
+
+We are exploring additional enhancements to Synergy, such as:
+
+- Incorporating the Five Factor Model (FFM) for personality assessment.
+- Allowing teachers to input student affiliations.
+- Enabling students to provide names of preferred team members.
+- Taking student grades and other performance metrics into account.
+
+## 📚 References
+
+- [Momani & Stirk (Diversity Dividend Canada’s Global Advantage)](www.cigionline.org/static/documents/documents/DiversitySpecial%20Report%20WEB_0.pdf)
+- [Nathan & Lee (Cultural Diversity, Innovation, and Entrepreneurship)](www.tandfonline.com/doi/abs/10.1111/ecge.12016)
+- [Tolsma et al. (Who Is Bullying Whom in Ethnically Diverse Primary Schools?)](https://doi.org/10.1016/j.socnet.2012.12.002)
+- [Jimerson (Advancing Diversity, Equity, and Inclusion in School Psychology)](www.tandfonline.com/doi/full/10.1080/2372966X.2021.1889938)
+- [Judge et al. (Personality and Leadership: A Qualitative and Quantitative Review)](https://doi.org/10.1037/0021-9010.87.4.765)
+- [Andrejczuk et al. (Synergistic Team Composition: A Computational Approach to Foster Diversity in Teams)](https://doi.org/10.1016/j.knosys.2019.06.007)
+- [Rands & Gansemer-Topf (The Room Itself Is Active: How Classroom Design Impacts Student Engagement)](files.eric.ed.gov/fulltext/EJ1152568.pdf)
+- [Barbuto (A Critique of the Myers-Briggs Type Indicator and Its Operationalization of Carl Jung’s Psychological Types)](https://doi.org/10.2466/pr0.1997.80.2.611)

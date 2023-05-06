@@ -64,30 +64,40 @@ git clone https://github.com/antoinekllee/Synergy.git
 2. Install the dependencies:
 
 ```
-cd Synergy
+cd synergy
 npm install
 ```
 
-3. Start the development server:
+3. Start the backend development server:
+
+```
+npx nodemon
+```
+
+4. In a new terminal window, navigate to the `client` folder and install the frontend dependencies:
+
+```
+cd client
+npm install
+```
+
+5. Start the frontend development server:
 
 ```
 npm start
 ```
 
-4. Open your browser and navigate to `http://localhost:3000` to access the Synergy web application.
+6. Open your browser and navigate to `http://localhost:3000` to access the Synergy web application.
 
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-![Thank You](./images/thank_you.jpg)
 
 ## 🌱 Future Steps
 
 We are exploring additional enhancements to Synergy, such as:
 
 - Incorporating the Five Factor Model (FFM) for personality assessment.
-- Allowing teachers to input student affiliations.
 - Enabling students to provide names of preferred team members.
 - Taking student grades and other performance metrics into account.
 
@@ -101,3 +111,5 @@ We are exploring additional enhancements to Synergy, such as:
 - [Andrejczuk et al. (Synergistic Team Composition: A Computational Approach to Foster Diversity in Teams)](https://doi.org/10.1016/j.knosys.2019.06.007)
 - [Rands & Gansemer-Topf (The Room Itself Is Active: How Classroom Design Impacts Student Engagement)](files.eric.ed.gov/fulltext/EJ1152568.pdf)
 - [Barbuto (A Critique of the Myers-Briggs Type Indicator and Its Operationalization of Carl Jung’s Psychological Types)](https://doi.org/10.2466/pr0.1997.80.2.611)
+
+![Thank You](./images/thank_you.jpg)

@@ -98,7 +98,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 We are exploring additional enhancements to Synergy, such as:
 
 - Incorporating the Five Factor Model (FFM) for personality assessment.
-- Allowing teachers to input student affiliations.
 - Enabling students to provide names of preferred team members.
 - Taking student grades and other performance metrics into account.
 

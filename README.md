@@ -58,23 +58,36 @@ Synergy has been tested in real-world classroom settings and demonstrated signif
 1. Clone the repository:
 
 ```
-git clone https://github.com/antoinekllee/Synergy.git
+git clone https://github.com/yourusername/synergy.git
 ```
 
 2. Install the dependencies:
 
 ```
-cd Synergy
+cd synergy
 npm install
 ```
 
-3. Start the development server:
+3. Start the backend development server:
+
+```
+npx nodemon
+```
+
+4. In a new terminal window, navigate to the `client` folder and install the frontend dependencies:
+
+```
+cd client
+npm install
+```
+
+5. Start the frontend development server:
 
 ```
 npm start
 ```
 
-4. Open your browser and navigate to `http://localhost:3000` to access the Synergy web application.
+6. Open your browser and navigate to `http://localhost:3000` to access the Synergy web application.
 
 ## 📜 License
 

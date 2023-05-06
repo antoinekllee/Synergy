@@ -80,8 +80,6 @@ npm start
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-![Thank You](./images/thank_you.jpg)
-
 ## 🌱 Future Steps
 
 We are exploring additional enhancements to Synergy, such as:
@@ -101,3 +99,5 @@ We are exploring additional enhancements to Synergy, such as:
 - [Andrejczuk et al. (Synergistic Team Composition: A Computational Approach to Foster Diversity in Teams)](https://doi.org/10.1016/j.knosys.2019.06.007)
 - [Rands & Gansemer-Topf (The Room Itself Is Active: How Classroom Design Impacts Student Engagement)](files.eric.ed.gov/fulltext/EJ1152568.pdf)
 - [Barbuto (A Critique of the Myers-Briggs Type Indicator and Its Operationalization of Carl Jung’s Psychological Types)](https://doi.org/10.2466/pr0.1997.80.2.611)
+
+![Thank You](./images/thank_you.jpg)

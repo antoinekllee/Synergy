@@ -53,42 +53,6 @@ Synergy is available as an easy-to-use web application that offers the following
 
 Synergy has been tested in real-world classroom settings and demonstrated significant improvement in group performance compared to self-selected and randomized groups. On average, groups formed by our algorithm performed 35.9% better than self-selected groups.
 
-## 🛠️ Installation & Setup
-
-1. Clone the repository:
-
-```
-git clone https://github.com/antoinekllee/Synergy.git
-```
-
-2. Install the dependencies:
-
-```
-cd synergy
-npm install
-```
-
-3. Start the backend development server:
-
-```
-npx nodemon
-```
-
-4. In a new terminal window, navigate to the `client` folder and install the frontend dependencies:
-
-```
-cd client
-npm install
-```
-
-5. Start the frontend development server:
-
-```
-npm start
-```
-
-6. Open your browser and navigate to `http://localhost:3000` to access the Synergy web application.
-
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -97,6 +61,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 We are exploring additional enhancements to Synergy, such as:
 
+- Creating an easy-to-use webapp for teachers to utilise the algorithm
 - Incorporating the Five Factor Model (FFM) for personality assessment.
 - Enabling students to provide names of preferred team members.
 - Taking student grades and other performance metrics into account.

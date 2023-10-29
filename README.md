@@ -6,8 +6,6 @@
 
 Welcome to **Synergy**! Enhancing classroom collaboration and performance by creating optimized student groups under the UWCSEA 50th anniversary innovation grant. Synergy uses an algorithm to generate well-balanced and diverse groups based on students' personality traits. The project aims to support teachers in fostering a productive and inclusive learning environment for all students.
 
-![App Overview](./images/app_overview.jpg)
-
 ## 🛠️ Tech Stack
 
 - Frontend: React.js
@@ -35,8 +33,6 @@ The algorithm creates groups based on the following principles:
 
 The algorithm computes the optimal partition of a class of students to maximize the product of utility functions of each individual group. Instead of using a brute force method, Synergy employs a greedy algorithm that quickly finds an initial solution and repeatedly improves it through crossover operations. This results in a 99.6% average optimality ratio and a 0.267% average time ratio compared to the brute force method.
 
-![Algorithm](./images/algorithm.jpg)
-
 ## 💻 Web Application
 
 Synergy is available as an easy-to-use web application that offers the following features:
@@ -46,8 +42,6 @@ Synergy is available as an easy-to-use web application that offers the following
 3. Integration with the UWCSEA CIMS system for seamless access to student data.
 4. Built-in form for students to complete the personality quiz based on the Post-Jungian (PJ) personality theory.
 5. Secure storage of students' personality data in a MongoDB database.
-
-![Web App](./images/web_app.jpg)
 
 ## 📊 Results
 
@@ -76,5 +70,3 @@ We are exploring additional enhancements to Synergy, such as:
 - [Andrejczuk et al. (Synergistic Team Composition: A Computational Approach to Foster Diversity in Teams)](https://doi.org/10.1016/j.knosys.2019.06.007)
 - [Rands & Gansemer-Topf (The Room Itself Is Active: How Classroom Design Impacts Student Engagement)](files.eric.ed.gov/fulltext/EJ1152568.pdf)
 - [Barbuto (A Critique of the Myers-Briggs Type Indicator and Its Operationalization of Carl Jung’s Psychological Types)](https://doi.org/10.2466/pr0.1997.80.2.611)
-
-![Thank You](./images/thank_you.jpg)
